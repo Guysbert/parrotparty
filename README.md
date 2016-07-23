@@ -4,6 +4,7 @@ Parrotparty is an Angular2 app that let's you create partyparrot grids to post i
 To run it run you need node and typescript.
 
 To install typescript run
+
     npm install -g typescript
 
 To install the app run
@@ -12,4 +13,5 @@ To install the app run
     typings install
     
 To run the app run
+
     npm start
