@@ -1,0 +1,37 @@
+<h1>Parrotparty</h1>
+<div class="parrotselector">
+    <ul>
+        <li class="parrot-item" *ngFor="let parrot of parrots">
+            <div [ngClass]="['parrot']" [class.parrot-selected]="parrot === selectedParrot" [ngStyle]="{'background-image': 'url(' + parrot.path + ')'}"
+                title="{{parrot.name}}" (click)="selectParrot(parrot.id)"></div>
+        </li>
+    </ul>
+</div>
+<div class="parrotgridblock">
+    <div id="settings">
+        <!--<label for="grid-width">Width:</label>
+        <input type="text" id="grid-width">
+        <label for="grid-height">Height:</label>
+        <input type="text" id="grid-height">-->
+        <input type="button" value="Toggle Grid" (click)="displayGrid = !displayGrid">
+    </div>
+    <div class="grid">
+        <table>
+            <tr *ngFor="let row of getRows()">
+                <td [class.bordered]="displayGrid" *ngFor="let cell of row">
+                    <div class="parrot" *ngIf="!cell.parrot" (click)="cellClick(cell.col, cell.row)">
+
+                    </div>
+                    <div *ngIf="cell.parrot" (click)="cellClick(cell.col, cell.row)" class="parrot" [ngStyle]="{'background-image': 'url(' + cell.parrot.path + ')'}">
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="output">
+    <input type="button" value="Create slack snippet" (click)="createSlackString()"><br>
+    <textarea readonly="readonly">{{slackString}}</textarea>
+</div>
