@@ -9,20 +9,21 @@
 </div>
 <div class="parrotgridblock">
     <div id="settings">
-        <!--<label for="grid-width">Width:</label>
-        <input type="text" id="grid-width">
-        <label for="grid-height">Height:</label>
-        <input type="text" id="grid-height">-->
+        <label for="grid-width">Width: {{userWidth}}</label>
+        <input (input)="updateUserWidth(widthRange.value)" #widthRange type="range"  min="5" max="50" id="grid-width" value="{{userWidth}}">
+        <label for="grid-height">Height: {{userHeight}}</label>
+        <input (input)="updateUserHeigth(heightRange.value)" #heightRange type="range" min="5" max="50" id="grid-height" value="{{userHeight}}">
+        <input type="button" value="Set Grid Size" (click)="setGridSize(widthRange.value, heightRange.value)">
         <input type="button" value="Toggle Grid" (click)="displayGrid = !displayGrid">
     </div>
     <div class="grid">
-        <table>
+        <table (mousedown)="enterDrawingMode($event)" (mouseup)="exitDrawingMode($event)">
             <tr *ngFor="let row of getRows()">
                 <td [class.bordered]="displayGrid" *ngFor="let cell of row">
-                    <div class="parrot" *ngIf="!cell.parrot" (click)="cellClick(cell.col, cell.row)">
+                    <div class="parrot" *ngIf="!cell.parrot" (click)="cellClick(cell.col, cell.row)" (mousemove)="cellDrag(cell.col, cell.row)" >
 
                     </div>
-                    <div *ngIf="cell.parrot" (click)="cellClick(cell.col, cell.row)" class="parrot" [ngStyle]="{'background-image': 'url(' + cell.parrot.path + ')'}">
+                    <div *ngIf="cell.parrot" (click)="cellClick(cell.col, cell.row)" (mousemove)="cellDrag(cell.col, cell.row)" class="parrot" [ngStyle]="{'background-image': 'url(' + cell.parrot.path + ')'}">
 
                     </div>
                 </td>
