@@ -1,92 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PARROTS } from './parrots';
 import { Parrot } from './parrot';
-
-
-
+import { ParrotService} from './parrots.service';
+import { ParrotSelector } from './parrotselector.component';
+import { SettingsService } from './settings.service';
 
 @Component({
   selector: 'my-app',
   templateUrl: 'app/app.component.html',
-  styleUrls: ['app/app.component.css']
+  styleUrls: ['app/app.component.css'],
+  directives: [ParrotSelector],
+  providers: [ParrotService, SettingsService]
 })
 export class AppComponent implements OnInit {
-  public parrots: Parrot[];
-  public selectedParrot: Parrot;
   public grid: Grid;
   public displayGrid: boolean;
   public slackString: string;
-  public userWidth:number;
-  public userHeight:number;
-  public drawingMode:boolean;
-  private currentCell:Cell;
+  public drawingMode: boolean;
+  private currentCell: Cell;
+  userWidth:number;
+  userHeigth:number;
+  
+  private static PARROT_SPACER: string = '         ';
 
-  private static PARROT_SPACER:string = '         ';
-  private static INITIAL_WIDTH:number = 5;
-  private static INITIAL_HEIGHT:number = 5;
+  constructor(private parrotService: ParrotService, private settingsService: SettingsService) { 
+
+  }
 
   ngOnInit() {
     this.displayGrid = true;
-    this.parrots = PARROTS;
-    this.grid = new Grid(AppComponent.INITIAL_WIDTH, AppComponent.INITIAL_HEIGHT);
-    this.userWidth = AppComponent.INITIAL_WIDTH;
-    this.userHeight = AppComponent.INITIAL_HEIGHT;
+    this.grid = new Grid(this.settingsService.getUserWidth(), this.settingsService.getUserHeigth());
+    this.userHeigth = 5;
+    this.userWidth = 5;
+  }
+  setUserWidth(userWidth) {
+        this.userWidth = userWidth;
+    }
+
+    setUserHeigth(userHeight) {
+        this.userHeigth = userHeight;
+    }
+
+  setGridSize(width, height){
+    this.grid = new Grid(height, width);
   }
 
-  setGridSize(userWidth, userHeight) {
-    if (this.inputIsValid(userWidth, userHeight)) {
-      this.grid = new Grid(userHeight, userWidth);
-    }
-  }
 
-  private inputIsValid(userWidth, userHeight){
-    let valid = true;
-    if (isNaN(parseInt(userWidth))) {
-      console.log('width is not a number');
-      valid = false;      
-    }
-    if (isNaN(parseInt(userHeight))) {
-      console.log('heigth is not a number');
-      valid = false;      
-    }
-    return valid;
-  }
-  disableDrawingModeIfMouseUp($event){
-    if ($event.buttons === 0){
+  disableDrawingModeIfMouseUp($event) {
+    if ($event.buttons === 0) {
       this.drawingMode = false;
     }
   }
 
-  enterDrawingMode($event){
+  enterDrawingMode($event) {
     $event.preventDefault();
-    this.drawingMode = true;    
+    this.drawingMode = true;
   }
 
-  exitDrawingMode($event){
+  exitDrawingMode($event) {
     $event.preventDefault();
     this.drawingMode = false;
   }
 
-  updateUserWidth(userWidth){
-    this.userWidth = userWidth;
-  }
 
-  updateUserHeigth(userHeight){
-    this.userHeight = userHeight;
-  }
 
-  selectParrot(id: number) {
-    this.selectedParrot = this.parrots.find(parrot => parrot.id === id);
-    console.log(id);
-  }
+
 
   getRows() {
     return this.grid.rowsAndColums;
   }
 
-  cellDrag(row,col){
+  cellDrag(row, col) {
     let cell = this.grid.getCell(row, col);
-    if (this.selectedParrot && cell != this.currentCell && this.drawingMode) {
+    if (this.parrotService.getSelectedParrot && cell != this.currentCell && this.drawingMode) {
       this.toggleParrot(row, col, cell);
     }
   }
@@ -95,13 +81,13 @@ export class AppComponent implements OnInit {
     this.toggleParrot(row, col, undefined);
   }
 
-  private toggleParrot(row, col, cell){
-    if (this.grid.getParrot(row, col) != this.selectedParrot) {
-        this.grid.setParrot(row, col, this.selectedParrot);
-      } else {
-        this.grid.setParrot(row, col, undefined);
-      }
-      this.currentCell = cell;
+  private toggleParrot(row, col, cell) {
+    if (this.grid.getParrot(row, col) != this.parrotService.getSelectedParrot()) {
+      this.grid.setParrot(row, col, this.parrotService.getSelectedParrot());
+    } else {
+      this.grid.setParrot(row, col, undefined);
+    }
+    this.currentCell = cell;
   }
 
   createSlackString() {
@@ -136,7 +122,7 @@ export class Grid {
     }
   }
 
-  getCell(row:number, col:number){
+  getCell(row: number, col: number) {
     return this.rowsAndColums[col][row];
   }
 
@@ -146,10 +132,10 @@ export class Grid {
   getParrot(row: number, col: number): Parrot {
     return this.rowsAndColums[col][row].parrot;
   }
-  getHeigth(): number{
+  getHeigth(): number {
     return this.rowsAndColums.length;
   }
-  getWidth():number {
+  getWidth(): number {
     return this.rowsAndColums[0].length;
   }
 

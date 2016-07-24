@@ -1,0 +1,27 @@
+.parrotselector {
+    width: 250px;
+    border: 1px solid;
+    display: inline-flex;
+}
+.parrotselector ul {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+}
+.parrotselector li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.parrot {
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 50%;
+    display: inline-block;
+}
+
+.parrot-selected {
+    background-color: lightblue;
+}
