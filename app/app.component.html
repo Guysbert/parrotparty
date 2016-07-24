@@ -9,15 +9,15 @@
 </div>
 <div class="parrotgridblock">
     <div id="settings">
-        <label for="grid-width">Width: {{userWidth}}</label>
-        <input (input)="updateUserWidth(widthRange.value)" #widthRange type="range"  min="5" max="50" id="grid-width" value="{{userWidth}}">
-        <label for="grid-height">Height: {{userHeight}}</label>
-        <input (input)="updateUserHeigth(heightRange.value)" #heightRange type="range" min="5" max="50" id="grid-height" value="{{userHeight}}">
-        <input type="button" value="Set Grid Size" (click)="setGridSize(widthRange.value, heightRange.value)">
-        <input type="button" value="Toggle Grid" (click)="displayGrid = !displayGrid">
+        <label for="grid-width">Width: {{userWidth}}</label><br>
+        <input (input)="updateUserWidth(widthRange.value)" #widthRange type="range"  min="5" max="50" id="grid-width" value="{{userWidth}}"><br>
+        <label for="grid-height">Height: {{userHeight}}</label><br>
+        <input (input)="updateUserHeigth(heightRange.value)" #heightRange type="range" min="5" max="50" id="grid-height" value="{{userHeight}}"><br>
+        <input type="button" value="Set Grid Size" (click)="setGridSize(widthRange.value, heightRange.value)"><br>
+        <input type="button" value="Toggle Grid" (click)="displayGrid = !displayGrid"><br>
     </div>
     <div class="grid">
-        <table (mousedown)="enterDrawingMode($event)" (mouseup)="exitDrawingMode($event)">
+        <table (mousedown)="enterDrawingMode($event)" (mouseup)="exitDrawingMode($event)" (mouseenter)="disableDrawingModeIfMouseUp($event)">
             <tr *ngFor="let row of getRows()">
                 <td [class.bordered]="displayGrid" *ngFor="let cell of row">
                     <div class="parrot" *ngIf="!cell.parrot" (click)="cellClick(cell.col, cell.row)" (mousemove)="cellDrag(cell.col, cell.row)" >

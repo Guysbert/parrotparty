@@ -14,6 +14,11 @@
 .parrotselector {
     width: 250px;
     border: 1px solid;
+    display: inline-flex;
+}
+
+.parrotgridblock{
+    display: inline-flex;
 }
 
 .parrotselector ul {

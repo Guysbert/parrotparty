@@ -51,6 +51,11 @@ export class AppComponent implements OnInit {
     }
     return valid;
   }
+  disableDrawingModeIfMouseUp($event){
+    if ($event.buttons === 0){
+      this.drawingMode = false;
+    }
+  }
 
   enterDrawingMode($event){
     $event.preventDefault();
