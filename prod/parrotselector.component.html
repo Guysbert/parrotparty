@@ -1,8 +1,0 @@
-<div class="parrotselector">
-    <ul>
-        <li class="parrot-item" *ngFor="let parrot of parrots">
-            <div [ngClass]="['parrot']" [class.parrot-selected]="isParrotSelected(parrot)" [ngStyle]="{'background-image': 'url(' + parrot.path + ')'}"
-                title="{{parrot.name}}" (click)="selectParrot(parrot.id)"></div>
-        </li>
-    </ul>
-</div>
