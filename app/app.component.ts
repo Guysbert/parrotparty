@@ -6,11 +6,12 @@ import { ParrotSelector } from './parrotselector/parrotselector.component';
 import { SettingsService } from './settings.service';
 
 const templateUrl = require('./app.component.html');
+const styles = require('./app.component.scss');
 
 @Component({
   selector: 'my-app',
   templateUrl: templateUrl,
-  styleUrls: ['app/app.component.css'],
+  styles: [styles],
   directives: [ParrotSelector],
   providers: [ParrotService, SettingsService]
 })
