@@ -2,7 +2,7 @@
   "name": "parrotparty",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack && concurrently \"npm run lite\" ",
+    "start": "webpack-dev-server --inline",
     "lite": "lite-server",
     "postinstall": "typings install",
     "typings": "typings"
@@ -40,6 +40,7 @@
     "sass-loader": "^4.0.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "typings": "^1.0.4"
+    "typings": "^1.0.4",
+    "webpack-dev-server": "^1.14.1"
   }
 }

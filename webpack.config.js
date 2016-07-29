@@ -19,13 +19,14 @@ const config = {
             loader: 'ts'
         }, {
             test: /\.html$/,
-            loader: 'file?name=prod/[name].[ext]?<[hash]&context=./app'
+            loader: 'file?name=prod/[name].[ext]?[hash]&context=./app'
         }, {
             test: /\.scss$/,
             loaders: ['raw', 'sass']
         }, ]
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: 'index.template.ejs',
             inject: 'body',
