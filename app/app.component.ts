@@ -2,13 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PARROTS } from './parrots';
 import { Parrot } from './parrot';
 import { ParrotService} from './parrots.service';
-import { ParrotSelector } from './parrotselector.component';
+import { ParrotSelector } from './parrotselector/parrotselector.component';
 import { SettingsService } from './settings.service';
+
+const templateUrl = require('./app.component.html');
+const styles = require('./app.component.scss');
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/app.component.html',
-  styleUrls: ['app/app.component.css'],
+  templateUrl: templateUrl,
+  styles: [styles],
   directives: [ParrotSelector],
   providers: [ParrotService, SettingsService]
 })

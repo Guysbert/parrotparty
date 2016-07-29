@@ -39,3 +39,5 @@ jspm_packages
 # Typescript typings
 typings
 dist
+prod
+index.html

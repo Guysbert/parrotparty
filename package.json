@@ -2,11 +2,9 @@
   "name": "parrotparty",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "start": "webpack-dev-server --inline",
     "lite": "lite-server",
     "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
     "typings": "typings"
   },
   "license": "ISC",
@@ -21,19 +19,28 @@
     "@angular/router": "3.0.0-beta.1",
     "@angular/router-deprecated": "2.0.0-rc.2",
     "@angular/upgrade": "2.0.0-rc.4",
-    "systemjs": "0.19.27",
+    "angular2-in-memory-web-api": "0.0.14",
+    "bootstrap": "^3.3.6",
     "core-js": "^2.4.0",
+    "es6-shim": "^0.35.1",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "angular2-in-memory-web-api": "0.0.14",
-    "bootstrap": "^3.3.6"
+    "ts-loader": "^0.8.2",
+    "webpack": "^1.13.1",
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
     "lite-server": "^2.2.0",
+    "node-sass": "^3.8.0",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^4.0.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "typings": "^1.0.4"
+    "typings": "^1.0.4",
+    "webpack-dev-server": "^1.14.1"
   }
 }
