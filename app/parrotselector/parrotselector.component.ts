@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Parrot } from './parrot';
-import { ParrotService } from './parrots.service';
+import { Parrot } from '../parrot';
+import { ParrotService } from '../parrots.service';
+
+const templateUrl = require('./parrotselector.component.html');
 
 @Component({
   selector: 'parrotselector',
-  templateUrl: 'app/parrotselector.component.html',
-  styleUrls: ['app/parrotselector.component.css']
+  templateUrl: templateUrl,
+  styleUrls: ['app/parrotselector/parrotselector.component.css']
 })
 export class ParrotSelector implements OnInit {
       public parrots: Parrot[];
